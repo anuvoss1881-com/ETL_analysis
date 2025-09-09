@@ -1,4 +1,4 @@
-# Madhav E-commerce ELT (Postgres + SQL DQ + Python Transforms + Airflow)
+#  E-commerce ELT (Postgres + SQL DQ + Python Transforms + Airflow)
 
 ## Overview
 This repo demonstrates an ELT pipeline:
