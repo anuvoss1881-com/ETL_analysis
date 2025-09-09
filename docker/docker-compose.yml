@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # Optional local Airflow webserver (simple dev setup).
+  airflow:
+    image: apache/airflow:2.6.3
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@db:5432/postgres
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'False'
+    depends_on:
+      - db
+    volumes:
+      - ../etl:/opt/etl
+      - ../dbt:/opt/dbt  # optional if you add dbt
+      - ../data:/opt/data
+      - ../airflow/dags:/opt/airflow/dags
+    ports:
+      - "8080:8080"
+    command: webserver
+
+volumes:
+  pgdata:

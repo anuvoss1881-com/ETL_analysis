@@ -1,0 +1,6 @@
+pandas
+sqlalchemy
+psycopg2-binary
+python-dateutil
+pytest
+apache-airflow==2.6.3  # optional, only if running Airflow in same environment. In docker image it's built-in.
